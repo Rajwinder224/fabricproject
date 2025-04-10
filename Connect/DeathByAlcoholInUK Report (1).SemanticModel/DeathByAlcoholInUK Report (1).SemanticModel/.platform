@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "SemanticModel",
+    "displayName": "DeathByAlcoholInUK Report (1)"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "d73414f5-fcc6-4a6c-9a9c-3ffb7330a57e"
+  }
+}

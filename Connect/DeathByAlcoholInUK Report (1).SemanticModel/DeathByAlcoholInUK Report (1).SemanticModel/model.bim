@@ -1,0 +1,192 @@
+{
+  "compatibilityLevel": 1567,
+  "model": {
+    "annotations": [
+      {
+        "name": "PBI_QueryOrder",
+        "value": "[\"Alcoholregionsfinal\"]"
+      },
+      {
+        "name": "__PBI_TimeIntelligenceEnabled",
+        "value": "1"
+      },
+      {
+        "name": "PBIDesktopVersion",
+        "value": "2.141.1451.0 (25.03)+5007b75f0f7edbed506e31fcb76584cd6d711788"
+      },
+      {
+        "name": "PBI_ProTooling",
+        "value": "[\"DevMode\"]"
+      }
+    ],
+    "culture": "en-US",
+    "cultures": [
+      {
+        "name": "en-US",
+        "linguisticMetadata": {
+          "content": {
+            "Language": "en-US",
+            "Version": "1.0.0"
+          },
+          "contentType": "json"
+        }
+      }
+    ],
+    "dataAccessOptions": {
+      "legacyRedirects": true,
+      "returnErrorValuesAsNull": true
+    },
+    "defaultPowerBIDataSourceVersion": "powerBI_V3",
+    "sourceQueryCulture": "en-IN",
+    "tables": [
+      {
+        "name": "Alcoholregionsfinal",
+        "annotations": [
+          {
+            "name": "PBI_NavigationStepName",
+            "value": "Navigation"
+          },
+          {
+            "name": "PBI_ResultType",
+            "value": "Table"
+          }
+        ],
+        "columns": [
+          {
+            "name": "Year",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataType": "string",
+            "lineageTag": "826009ad-19ff-4ce1-9aa6-b50cca7411c5",
+            "sourceColumn": "Year",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "ICD_10_code",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataType": "string",
+            "lineageTag": "f42e2747-47ad-43cf-8420-4ed759d618c3",
+            "sourceColumn": "ICD_10_code",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Individual_cause_of_death_description",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataType": "string",
+            "lineageTag": "fa2e335c-5e78-459c-b867-cea556d29fe2",
+            "sourceColumn": "Individual_cause_of_death_description",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Gender",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataType": "string",
+            "lineageTag": "014734f5-093b-417d-babc-2bfd1caf3bc6",
+            "sourceColumn": "Gender",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Age_Groups",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataType": "string",
+            "lineageTag": "2bcda326-c5c8-4ea9-bd3e-aa92f74d3839",
+            "sourceColumn": "Age_Groups",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Age_Groups_Index",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataType": "string",
+            "lineageTag": "f83b7017-5583-4d0c-929c-f79e238c4b2b",
+            "sourceColumn": "Age_Groups_Index",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Deaths",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataType": "int64",
+            "formatString": "0",
+            "lineageTag": "dfd3c178-061b-4649-a222-66f31a6998ec",
+            "sourceColumn": "Deaths",
+            "summarizeBy": "sum"
+          },
+          {
+            "name": "Location",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataType": "string",
+            "lineageTag": "1744c1d0-dfce-44c3-b34f-d50be3a3d42b",
+            "sourceColumn": "Location",
+            "summarizeBy": "none"
+          }
+        ],
+        "lineageTag": "80026c3f-38e1-4fb5-b04a-5f33a48583e8",
+        "measures": [
+          {
+            "name": "Total Deaths",
+            "expression": "SUM(Alcoholregionsfinal[Deaths])",
+            "formatString": "0",
+            "lineageTag": "2382f046-e900-4c13-9fe7-92e8cb9a78a4"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "Alcoholregionsfinal",
+            "mode": "import",
+            "source": {
+              "expression": [
+                "let",
+                "    Source = Sql.Databases(\"health-careserver.database.windows.net\"),",
+                "    #\"Alcohol-specific deaths in uk\" = Source{[Name=\"Alcohol-specific deaths in uk\"]}[Data],",
+                "    dbo_Alcoholregionsfinal = #\"Alcohol-specific deaths in uk\"{[Schema=\"dbo\",Item=\"Alcoholregionsfinal\"]}[Data],",
+                "    #\"Changed Type\" = Table.TransformColumnTypes(dbo_Alcoholregionsfinal,{{\"Year\", type text}, {\"Deaths\", Int64.Type}}),",
+                "    #\"Filtered Rows\" = Table.SelectRows(#\"Changed Type\", each ([Gender] <> \"Persons\") and ([Location] <> \"Location\"))",
+                "in",
+                "    #\"Filtered Rows\""
+              ],
+              "type": "m"
+            }
+          }
+        ]
+      }
+    ]
+  }
+}
